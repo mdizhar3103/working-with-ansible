@@ -1,0 +1,16 @@
+[webserver]
+10.12.2.205 
+
+[dbserver]
+10.12.77.49 
+
+[mumbai:children]
+webserver
+dbserver
+
+#[webserver:vars]
+#ansible_ssh_private_key_file=/home/opc/working-with-ansible/lin1_izhar_pvt_key
+
+
+#[dbserver:vars]
+#ansible_ssh_private_key_file=/home/opc/working-with-ansible/lin2_izhar_pvt_key

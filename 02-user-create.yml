@@ -1,0 +1,10 @@
+- name: Create users
+  hosts: all
+  tasks:
+    - name: user exists with uid 4000
+      user:
+        name: "{{ item.name }}"
+        uid: "{{ item.userid }}"
+        state: present
+      with_items: 
+        - { name: "devops", userid: "4000"}

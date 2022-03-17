@@ -1,0 +1,9 @@
+- name: Check Ping Connection
+  hosts: all
+  tasks:
+    - name: Ping all Servers
+      ping:
+
+    - name: Print OS family
+      debug:
+        msg: "{{ ansible_os_family }}"
