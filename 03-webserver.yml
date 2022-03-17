@@ -1,0 +1,31 @@
+- name: Install and Start Apache HTTPD
+  hosts: webserver
+  tasks:
+    - name: httpd package is Installed
+      yum:
+        name: httpd 
+        state: present
+
+    - name: httpd service is started
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Testing index.html file is present
+      copy:
+        content: "This is for testing Purpose!"
+        dest: /var/www/html/index.html
+
+    - name: Firewalld permit http service
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+
+    - name: Test the webserver
+      uri:
+        url: http://localhost/index.html
+        status_code: 200
+        

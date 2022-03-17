@@ -1,0 +1,37 @@
+- name: Clone PHP Git Repo
+  hosts: webserver
+  tasks:
+    - name: Git checkout
+      git:
+        repo: 'https://github.com/mdizhar3103/PHP-Website.git'
+        dest: /var/www/html
+        clone: yes
+        update: yes 
+
+- name: Configuring Database user
+  hosts: dbserver
+  vars:
+    mysql_root_password: "Izhar@123"
+    create_user: "adminuser"
+    user_password: "passwordadmin"
+  tasks:
+    - name: Get SQL script
+      get_url:
+         url: "https://raw.githubusercontent.com/mdizhar3103/PHP-Website/main/db_tables.sql"
+         dest: /home/opc
+
+    - name: Setting adminuser
+      mysql_user:
+        name: "{{ create_user }}"
+        password: "{{ user_password }}"  
+        priv: "*.*:ALL,GRANT"
+        state: present
+        host: "{{ item }}"  
+        login_user: root  
+        login_password: "{{ mysql_root_password }}"  
+      with_items:  
+        - "{{ ansible_hostname }}"  
+        - "{{ ansible_default_ipv4.address }}"
+        - 127.0.0.1  
+        - ::1  
+        - localhost

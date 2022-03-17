@@ -1,0 +1,62 @@
+- name: Install and Start Apache HTTPD
+  hosts: webserver
+  tasks:
+    - name: httpd package is Installed
+      yum:
+        name: "{{ item }}" 
+        state: present
+      with_items:
+        - httpd
+        - php
+        - php-mysql 
+
+    - name: httpd service is started
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Firewalld enabled and Running
+      service:
+        name: firewalld
+        enabled: true
+        state: started
+    
+    - name: Firewalld permits http service
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+
+    - name: Test the Php page is Installed 
+      get_url:
+         url: "https://gist.githubusercontent.com/SyntaxC4/5648247/raw/94277156638f9c309f2e36e19bff378ba7364907/info.php"
+         dest: /var/www/html
+
+    - name: Test the webserver
+      uri:
+        url: http://localhost/info.php
+        status_code: 200    
+
+
+- name: Install MySQL Database
+  hosts: dbserver
+  tasks:
+    - name: Install mariadb
+      yum:
+        name: mariadb-server
+        state: present
+
+    - name: Starting the mariadb service
+      service:
+        name: mysqld
+        enabled: true
+        state: started
+
+    - name: Install PyMySQL library
+      pip:
+        name: PyMySQL
+        executable: pip3
+
+
