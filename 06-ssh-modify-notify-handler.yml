@@ -1,0 +1,17 @@
+- name: Enable Password Authentication for ssh
+  hosts: all
+  tasks:
+    - name: Editing sshd
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication yes"
+        insertafter: "^PasswordAuthentication"
+      notify: restart_sshd
+
+  handlers:
+    - name: restart_sshd
+      service:
+        name: sshd 
+        state: restarted
+
