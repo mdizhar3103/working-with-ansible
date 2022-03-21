@@ -1,0 +1,32 @@
+- name: Create and Manage users
+  hosts: all
+  tasks: 
+    - name: "Create User, SSH Auth and Sudoers File entry"
+      block:
+        - name: 'Create User Account'
+          user:
+            name: "{{ user_name | default('devops') }}"
+            state: present
+            shell: '/bin/bash'
+            password: "{{ user_password | password_hash('sha512') }}"
+            update_password: 'on_create'
+
+        - name: Allow SSH Authentication via key 
+          authorized_key:
+            user: "{{ user_name | default('devops') }}"
+            state: present
+            manage_dir: true 
+            key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+
+        - name: "Copy entry to sudoers file"
+          copy:
+            dest: "/etc/sudoers.d/'{{ user_name }}'"
+            content: "{{ user_name }} ALL=(ALL) NOPASSWD: ALL"
+      when: user_create == 'yes'
+    
+    - name: 'Delete User Account'
+      user:
+        name: "{{ user_name | default('devops') }}"
+        state: absent
+        remove: true
+      when: user_create == 'no'
