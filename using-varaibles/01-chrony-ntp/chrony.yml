@@ -1,0 +1,28 @@
+- name: Managing the chrony Timeserver
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: 'Ensure that chrony package is installed'
+      package:
+        name: chrony
+        state: present
+    
+    - name: 'Ensure chrony is enabled and running'
+      service:
+        name: "{{ chrony_svc }}"
+        state: started
+        enabled: true
+
+    - name: Copying the modified config file for chrony
+      lineinfile:
+        path: "{{ chrony_conf }}"
+        regexp: "^keyfile /etc/chrony.keys"
+        line: "keyfile /etc/chrony.keys"
+        insertafter: "^keyfile /etc/chrony.keys"
+      notify: "restart_chrony"
+
+  handlers:
+    - name: "restart_chrony"
+      service:
+        name: "{{ chrony_svc }}"
+        state: restarted
