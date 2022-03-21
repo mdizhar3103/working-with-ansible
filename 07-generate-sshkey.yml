@@ -1,0 +1,9 @@
+- name: Manage Local Account 
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: 'Manage Current user ssh key'
+      state: present
+      generate_ssh_key: true
+      ssh_key_type: 'ecdsa'
+      ssh_key_file: '.ssh/id_ecdsa'
