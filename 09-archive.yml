@@ -1,0 +1,6 @@
+
+- name: 'Backup and schedule backups'
+  hosts: all
+  tasks:
+    - include_tasks: 08-backup.yml
+    - include_tasks: 10-cron.yml

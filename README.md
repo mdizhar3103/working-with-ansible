@@ -95,3 +95,9 @@ vi group_vars/host_name_2
     apache_pkg: apache2
     apache_svc: apache2
 ```
+
+***NOTE***
+> All import* statements are pre-processed at the time playbooks are parsed.
+> All include* statements are processed as they encountered during the execution of the playbook.
+> **So import is static, include is dynamic.**
+
