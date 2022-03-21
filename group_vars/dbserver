@@ -1,0 +1,6 @@
+chrony_conf: /etc/chrony.conf
+chrony_svc: chronyd
+
+user_name: izhar
+user_password: Izhar@123
+user_create: yes
