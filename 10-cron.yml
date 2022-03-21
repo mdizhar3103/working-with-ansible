@@ -5,7 +5,7 @@
     minute: '0'
     hour: '2'
     user: 'root'
-    job: 'tar -czf /tmp/etc-{{ ansible_hostname }}.tgz'
+    job: 'tar -czf /tmp/etc-{{ ansible_hostname }}.tgz /etc'
     cron_file: etc_backup
 
 # associate with 09-file
