@@ -31,6 +31,8 @@ ansible --list all
 ansible --list ungrouped
 ansible-inventory --list
 ansible-inventory --list -y
+ansible-inventory --graph 
+ansible-inventory --graph --vars
 
 # inventory variables
 mkdir {host,group}_vars
@@ -47,4 +49,49 @@ Multi-Line String Syntax
 - '|':  This vertical bar denotes that the newline characters within the string are to be preserved
 - '>': Greater than character is used to indicate that newline character are to be converted to spaces and that leading white spaces are to be removed.
 
+
+**Creating a User with authorized keys**
+```bash
+ansible <host> --private-key pvt_key_name.key  -u user_name -m user -a "name=izhar state=present"
+
+echo "izhar ALL=(ALL) NOPASSWD: ALL" > izhar
+visudo -cf izhar
+
+ansible <host> --private-key pvt_key_name.key  -u user_name -m copy -a "src=izhar dest=/etc/sudoers.d/"
+
+ssh-keygen
+
+ansible <host> --private-key pvt_key_name.key -u user_name -m authorized_key \
+-a "user=izhar state=present key='{{ lookup('file','~/.ssh/id_rsa.pub') }} 
+
+
+# add the private key path in ansible.cfg
+# [defaults]
+# ...
+# private_key_file = ~/.ssh/id_rsa
+```
+
+> Note: See difference between Shell and Command Module, also see script module
+
+```bash
+ansible all -m command -a "echo hello > file1"
+ansible all -m shell -a "echo hello > file1"
+
+# redirection operation work with shell module
+```
+
 **Managing Variables**
+- Using vars in yaml file
+- Using folder group_vars
+
+```bash
+mkdir group_vars
+
+vi group_vars/host_name_1
+    apache_pkg: httpd
+    apache_svc: httpd
+
+vi group_vars/host_name_2
+    apache_pkg: apache2
+    apache_svc: apache2
+```
