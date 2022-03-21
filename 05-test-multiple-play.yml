@@ -6,7 +6,8 @@
         repo: 'https://github.com/mdizhar3103/PHP-Website.git'
         dest: /var/www/html
         clone: yes
-        update: yes 
+        update: yes
+      ignore_errors: True 
 
 - name: Configuring Database user
   hosts: dbserver
