@@ -1,0 +1,29 @@
+--- 
+# if you have installed the docker locally use this file for testing your containers and dont forget to add ansible_connection=docker in inventory
+# ansible-console containers
+# git_config list_all=yes scope=global
+
+- name: Configuring Git Containers Created 
+  hosts: containers
+  tasks:
+    - name: List the Configuration
+      git_config:
+        scope: global
+        list_all: yes 
+
+    - name: Add Git user email
+      git_config:
+        scope: global
+        name: user.email
+        value: mdizhar3103@gmail.com
+    
+    - name: Add Git user name
+      git_config:
+        scope: global
+        name: user.name
+        value: mdizhar3103
+
+    - name: List the Configuration Again
+      git_config:
+        scope: global
+        list_all: yes 
