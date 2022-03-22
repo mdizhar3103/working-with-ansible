@@ -9,6 +9,8 @@ webserver
 dbserver
 
 
+#[containers]
+#ansible_container_test[1:3]
 
 [dbserver:vars]
 ansible_python_interpreter=/usr/bin/python3

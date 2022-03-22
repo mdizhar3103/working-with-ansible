@@ -1,0 +1,4 @@
+# if we are managing locallly we can specify ansible_connection as docker
+# for testing add only ansible_containers[1:3] with [containers] in your main host file and run the playbook 
+[containers]
+ansible_container_test[1:3] ansible_connection=docker

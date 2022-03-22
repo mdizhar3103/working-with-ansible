@@ -1,0 +1,55 @@
+---
+
+- name: Ensure pre-requisite for docker containers
+  hosts: dbserver
+  tasks:
+    - name: installing docker with pip 
+      pip:
+        name: docker
+        state: present
+        executable: pip3 
+
+    - name: "Docker tasks"
+      block:
+        - name: Ensure docker and its dependencies are not installed
+          yum:
+            name:
+              - docker 
+              - docker-client 
+              - docker-client-latest 
+              - docker-common 
+              - docker-latest 
+              - docker-latest-logrotate 
+              - docker-logrotate 
+              - docker-engine 
+              - podman 
+              - runc
+            state: absent
+
+        - name: "Adding Docker repo"
+          shell:
+            cmd: sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 
+
+        - name: "Installing Docker packages"
+          yum:
+            name: "{{ item }}"
+            state: present
+          loop:
+            - yum-utils
+            - docker-ce-18.09.1 
+
+        - name: "Starting and Enabling Docker Service"
+          service:
+            name: docker 
+            state: started
+            enabled: true
+      when: ansible_os_family == 'RedHat'
+
+    - name: Create docker containers
+      docker_container:
+        image: python
+        # command: bash
+        interactive: yes
+        name: "{{ item }}"
+        state: started
+      loop: "{{ query('inventory_hostnames','containers') }}"
