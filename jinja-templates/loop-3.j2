@@ -1,0 +1,3 @@
+{% for node in groups['all'] %}
+{{ hostvars[node]['ansible_facts']['hostname'] }} - {{ hostvars[node]['ansible_default_ipv4']['address'] }}
+{% endfor %} 

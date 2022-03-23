@@ -1,0 +1,7 @@
+- name: Loop in Templates with ansible facts
+  hosts: all
+  tasks:
+    - name: Loop the inventory groups and get hostname and IP 
+      template:
+        src: /home/opc/working-with-ansible/jinja-templates/loop-3.j2
+        dest: /tmp/system_hostname_with_ip.txt

@@ -101,3 +101,13 @@ vi group_vars/host_name_2
 > All include* statements are processed as they encountered during the execution of the playbook.
 > **So import is static, include is dynamic.**
 
+
+**Using Jinja2 Templates**
+To get rid of newline in for loop use the following syntax
+```bash
+# the - will stop the for loop in printing new line
+{% for loop goes here %}
+ {{ data }}
+{%- endfor %}
+```
+> Note: Templating is done on controller

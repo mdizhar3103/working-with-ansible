@@ -1,0 +1,7 @@
+- name: Loop in Templates
+  hosts: dbserver
+  tasks:
+    - name: Loop the inventory groups
+      template:
+        src: /home/opc/working-with-ansible/jinja-templates/loop.j2
+        dest: /tmp/hosts_all.txt
