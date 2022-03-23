@@ -1,0 +1,5 @@
+- name: Make sure chrony package is installed
+  package:
+    name: chrony
+    state: present
+  tags: install

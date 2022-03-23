@@ -156,3 +156,10 @@ Using Roles:
     - Roles used with the 'include_roles' or 'import_roles' run in the order they are defined
 
 **vars in roles have higher precendence than defaults**
+
+***Tagging Roles***
+- Tags are useful for selectively running roles or tasks within roles
+- Tagging statically reused roles will apply the tag to all tasks within the role
+- To run selected tasks from a particular role:
+    - Use the role with the 'include_role' keyword tag it
+    - Tag the tasks within the role with the same tag

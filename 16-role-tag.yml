@@ -1,0 +1,6 @@
+- name: Running Role with tag
+  hosts: all
+  tasks:
+  - include_role:
+      name: ntp2
+    tags: install
