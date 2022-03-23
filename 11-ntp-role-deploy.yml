@@ -1,0 +1,7 @@
+- name: Deploying NTP role
+  hosts: all
+  roles:
+    - ntp
+
+# run this command to check ntp servers
+# chronyc sources

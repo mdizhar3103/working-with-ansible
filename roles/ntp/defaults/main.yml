@@ -1,0 +1,5 @@
+---
+# defaults file for ntp
+server_ip: 169.254.169.254
+chrony_key: /etc/chrony.keys  
+chrony_svc: chronyd

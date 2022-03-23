@@ -111,3 +111,37 @@ To get rid of newline in for loop use the following syntax
 {%- endfor %}
 ```
 > Note: Templating is done on controller
+
+**Working with Roles**
+Roles structure:
+```bash
+|_ role_name
+    |_ defaults
+    |_ files
+    |_ handlers
+    |_ meta
+    |_ tasks
+    |_ templates
+    |_ tests
+    |_ vars
+```
+Creating Roles:
+- manually create folders
+- use ansible-galaxy
+
+```bash
+ansible-galaxy init <role_name>
+```
+
+***Configuring role in ansible.cfg***
+```bash
+# in current working directory where ansible.cfg resides
+mkdir roles
+
+vim ansible.cfg
+    [defaults]
+    ....
+    roles_path = ./roles
+
+ansible-galaxy init ntp  # creating role for ntp
+```
