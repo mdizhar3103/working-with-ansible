@@ -1,0 +1,5 @@
+---
+# defaults file for webserver
+vhost_config_file: /etc/httpd/conf.d/demo.conf
+apache_config_file: /etc/httpd/conf/httpd.conf
+document_root_path: /var/www/html

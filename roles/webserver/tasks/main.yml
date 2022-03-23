@@ -1,0 +1,49 @@
+---
+# tasks file for webserver
+- name: httpd package is Installed
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - httpd
+    - php
+    - php-mysql
+- name: httpd service is started
+  service:
+    name: httpd
+    state: started
+    enabled: true
+- name: Firewalld enabled and Running
+  service:
+    name: firewalld
+    enabled: true
+    state: started
+- name: Firewalld permits http service
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: 'yes'
+- name: Copy the Php page
+  copy:
+    src: index.php
+    dest: "{{ document_root_path }}"
+    mode: 0775
+- name: Copy the vhost config file 
+  template:
+    src: site_config.j2
+    dest: "{{ vhost_config_file }}"
+    owner: root
+    group: root 
+    mode: 0644
+  notify: restart_httpd
+- name: Configure httpd.conf
+  lineinfile:
+    path: "{{ apache_config_file }}" 
+    regexp: "^IncludeOptional"
+    line: "IncludeOptional conf.d/*.conf"
+  notify: restart_httpd
+- name: Test the webserver
+  uri:
+    url: 'http://localhost/index.php'
+    status_code: 200
