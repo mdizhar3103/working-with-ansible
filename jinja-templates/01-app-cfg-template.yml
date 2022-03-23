@@ -1,0 +1,8 @@
+- name: Basic Template file
+  hosts: dbserver
+  tasks:
+    - name: 'App Config file using Template'
+      template:
+        src: /home/opc/working-with-ansible/jinja-templates/app_config.j2
+        dest: /tmp/app.conf
+

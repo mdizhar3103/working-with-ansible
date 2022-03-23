@@ -1,0 +1,7 @@
+- name: Conditional Templating
+  hosts: dbserver
+  tasks:
+    - name: Checking the OS version 
+      template:
+        src: /home/opc/working-with-ansible/jinja-templates/version.j2
+        dest: /tmp/version.txt

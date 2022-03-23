@@ -1,0 +1,12 @@
+- name: Basic template filter working
+  hosts: all
+  vars:
+    employee1:
+      name: 'Izhar'
+      job: 'Senior Consultant'
+      skill: DevOps
+  tasks:
+    - name: Transform dictionary into a list
+      template:
+        src: /home/opc/working-with-ansible/jinja-templates/filter.j2
+        dest: /tmp/filter.out
