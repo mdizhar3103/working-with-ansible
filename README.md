@@ -114,6 +114,7 @@ To get rid of newline in for loop use the following syntax
 
 **Working with Roles**
 Roles structure:
+
 ```bash
 |_ role_name
     |_ defaults
@@ -145,3 +146,13 @@ vim ansible.cfg
 
 ansible-galaxy init ntp  # creating role for ntp
 ```
+
+Using Roles:
+- At play level with the roles 'option'
+- At the task level with __include_role__ (Dynamic reuse)
+- At the task level with __import_role__ (Static reuse)
+- Execution order
+    - Roles used in the roles section run before other tasks in the play
+    - Roles used with the 'include_roles' or 'import_roles' run in the order they are defined
+
+**vars in roles have higher precendence than defaults**

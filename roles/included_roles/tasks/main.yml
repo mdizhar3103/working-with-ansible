@@ -1,0 +1,6 @@
+- name: setting facts inside included role 
+  set_fact:
+    mode: false
+- name: Printing Output
+  debug:
+    msg: "Message from Included Role."

@@ -1,0 +1,14 @@
+- name: Running the Imported Role and Included Role
+  hosts: all
+  gather_facts: false
+  tasks:
+    - set_fact:
+        mode: true
+    - include_role:
+        name: included_roles
+      when: mode == true
+    - set_fact:
+        mode: true
+    - import_role:
+        name: imported_roles
+      when: mode == true

@@ -1,0 +1,6 @@
+- name: setting facts inside imported role 
+  set_fact:
+    mode: false
+- name: Printing Output
+  debug:
+    msg: "Message from Imported Role."
