@@ -1,0 +1,8 @@
+- name: Deploying NTP role
+  hosts: all
+  roles:
+    - ntp 
+  tasks:
+    - name: print the outputs
+      debug:
+        msg: "{{ output }}"
