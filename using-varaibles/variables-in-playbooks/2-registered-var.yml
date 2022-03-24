@@ -1,0 +1,12 @@
+- name: Using Registered Variables
+  hosts: webserver
+  tasks:
+  - name: Install httpd and print the result
+    yum:
+      name: httpd 
+      state: present
+    register: install_result
+
+  - name: httpd package status
+    debug:
+      msg: "{{ install_result }}"
