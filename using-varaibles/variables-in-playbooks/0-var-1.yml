@@ -1,0 +1,12 @@
+- name: Using variables within playbook
+  hosts: all
+  vars:
+    user: izhar
+    home: /home/izhar
+  tasks:
+  - name: Print the variable value
+    debug: 
+      msg: "{{ item }}"
+    loop:
+      - user
+      - home
