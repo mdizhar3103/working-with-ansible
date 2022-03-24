@@ -1,0 +1,15 @@
+fruits: 
+  - Apple
+  - Mango
+  - Grapes
+
+user_names:
+  - izhar
+  - ragavan
+  - tridib
+
+services:
+  - {name: httpd, state: started}
+  - {name: chronyd, state: restarted}
+  - {name: mysqld, state: stopped}
+

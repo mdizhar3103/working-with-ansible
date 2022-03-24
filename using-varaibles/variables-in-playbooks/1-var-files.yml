@@ -1,0 +1,20 @@
+- name: Using variables Files
+  hosts: all
+  vars_files:
+    - vars/content.yml
+  tasks:
+  - name: Print the variables value using with items
+    debug: 
+      msg: "Variables Values in file: {{ item.name | default(item) }}"
+    with_items:
+      - "{{ fruits }}"
+      - "{{ user_names }}"
+      - "{{ services }}"
+  
+  - name: Print the variables value using loop
+    debug: 
+      msg: "Variables Values in file: {{ item }}"
+    loop:
+      - "{{ fruits }}"
+      - "{{ user_names }}"
+      - "{{ services }}"
