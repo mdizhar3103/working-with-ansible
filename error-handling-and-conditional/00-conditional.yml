@@ -1,0 +1,19 @@
+---
+- name: Using WHEN condition with tasks
+  hosts: webserver
+  vars:
+    run_my_task: true
+    my_service: httpd 
+  tasks:
+    - name: Install HTTPD package
+      yum:
+        name: "{{ my_service }}"
+        state: present 
+      when: run_my_task
+
+    - name: "Starting and Enabling {{ my_service }} and check variable is defined"
+      service:
+        name: "{{ my_service }}"
+        state: started
+        enabled: true
+      when: my_service is defined
