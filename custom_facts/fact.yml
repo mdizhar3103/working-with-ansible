@@ -1,0 +1,8 @@
+- name: Using custom facts
+  hosts: webserver
+  tasks:
+  - name: Print Custom facts 
+    debug:
+      msg: >
+           The package is installed on {{ ansible_fqdn }}
+           is {{ ansible_local.custom.packages.web_package }}
