@@ -1,0 +1,12 @@
+# Conditional handling with failed when
+---
+- name: using failed_when conditional
+  hosts: all
+  vars:
+    - web_package: httpd
+  tasks:
+  - name: Install the apache package 
+    yum:
+      name: "{{ web_package }}"
+      state: latest
+    failed_when: web_package == 'httpd'
