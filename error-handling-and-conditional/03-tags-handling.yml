@@ -1,0 +1,14 @@
+- name: using tags with tasks
+  hosts: webserver
+  tasks:
+  - name: Ensure packages are installed
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - httpd
+      - chrony
+    tags:
+      - packages
+
+# ansible-playbook error-handling-and-conditional/03-tags-handling.yml  --tag packages
