@@ -1,0 +1,24 @@
+# Block - run the main tasks
+# Rescue - run the tasks if the tasks defined in the block fails
+# Always - run the tasks regardless of the success or failure of tasks defined in block and rescue
+
+---
+- name: Working with block, rescue, and always 
+  hosts: webserver
+  tasks:
+  - block:
+      - name: Install apache package
+        package: 
+          name: apache2
+          state: present
+    
+    rescue:
+      - name: Install httpd package
+        yum:
+          name: httpd
+          state: present
+    
+    always:
+      - name: Print the message
+        debug:
+          msg: "This is always executed"
