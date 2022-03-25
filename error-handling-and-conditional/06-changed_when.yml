@@ -1,0 +1,16 @@
+# Conditional handling with changed when
+---
+- name: using changed_when conditional
+  hosts: all
+  tasks:
+  - name: check the current date
+    command: date
+    register: command_result
+    changed_when: false
+
+  - name: Print the Date time
+    debug:
+      msg: "{{ command_result['stdout'] }}"
+
+# changed_when: false --> is used to suppress the task change
+# try also with changed_when: true
