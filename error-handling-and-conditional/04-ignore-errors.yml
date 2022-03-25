@@ -1,0 +1,11 @@
+- name: using ignore error to avoid playbook break
+  hosts: all
+  tasks: 
+  - name: Check the packages are installed or not
+    yum: 
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - chronyd
+      - notapkg
+    ignore_errors: yes
