@@ -1,0 +1,14 @@
+- name: Working with Handlers
+  hosts: webserver
+  tasks:
+  - name: Modify changes to httpd conf
+    debug:
+      msg: "This is for just demo not actually modifying or copying the httpd.conf"
+    notify:
+      - restart_httpd
+
+  handlers:
+  - name: restart_httpd
+    service:
+      name: httpd
+      state: restarted
