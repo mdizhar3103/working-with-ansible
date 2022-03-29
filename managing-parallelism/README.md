@@ -35,6 +35,14 @@ forks = 1
     - __Free__
         - Each host runs through the task list as fast as possible
         - Slow hosts won't delay the rest
-    - Host_pinned
-    - Debug
+    - __Host_pinned__
+        - Enhancement of the 'Free Strategy'
+        - Number of hosts with an active play doesn't exceed the forks limit (workers stick to hosts till play completion)
+        - A new host starts when another is done with the play
+    - __Debug__
+        - Normally runs just like linear strategy 
+        - When an error is encountered:
+            - Invokes the interactive debug console
+            - Allows us to modify the internal state to correct the problem
+        - Failing task or the whole playbook can be debugged
 - ***Only one strategy plugin can be used per play***

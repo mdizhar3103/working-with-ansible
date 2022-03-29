@@ -1,0 +1,20 @@
+- name: Managing Parallelism in Ansible
+  hosts: all
+  serial: 2
+  strategy: host_pinned
+  vars:
+    - sleep_duration: 2
+  gather_facts: false
+  tasks:
+    - name: Running sleep command 
+      command: "sleep {{ sleep_duration }}"
+      register: result
+
+    - name: Deneme Debug
+      debug: 
+        msg: "{{ inventory_hostname }} task1 {{ result.start }} - {{ result.end }}"
+
+
+# set sleep_duration in inventroy var for each host to see better result for understanding
+# vim inventory
+# host_name sleep_duration=10
