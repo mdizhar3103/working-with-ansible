@@ -77,3 +77,29 @@ ansible-vault create --encrypt-vault-id dev working-with-vault/vault_dev.yml
 ansible-vault create --encrypt-vault-id prod working-with-vault/vault_prod.yml
     prod_variable: "Prod Rocks!"
 ```
+
+### Encrypting Variables
+- Vault can encrypt variables:
+    - ansible-vault encrypt_string <pwd_source> 'str_to_encrypt' --name 'var_name'
+- Plaintext and encrypted variables can be mixed
+- Multiple Vault IDs are supported
+- Encrypted variables can't be rekeyed
+- ***Encrypted variables can't be rekeyed***
+
+
+```bash
+ansible-vault encrypt_string --encrypt-vault-id dev 'izhar_data' --name 'the_secret'
+# you will get output like this
+the_secret: !vault |
+          $ANSIBLE_VAULT;1.2;AES256;dev
+          62643636383338396231646561386363623033313261333536383066653331633337616666326539
+          3338383839346231393763316330323636633939363838340a623738313337623733393461363936
+          39316665316131376339373836623934303634633736386132323864376432656539666463373836
+          3965663731373533620a356464653065653236316538653432313032323436323135343461663033
+          3934
+Encryption successful
+
+copy the_secret and add it to your .yml playbook
+
+ansible-playbook working-with-vault/02-vault-3.yml
+```
