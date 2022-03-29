@@ -1,0 +1,18 @@
+- name: Working with Ansible Vault
+  hosts: all
+  vars_files:
+    - vaultfile1.yml
+  tasks:
+    - name: Output encrypted content
+      debug:
+        msg: "{{ db_admin_user }}"
+
+# ansible-playbook working-with-vault/00-vault-1.yml --ask-vault-pass
+# or adding password in a file and providing the file during adhoc commad
+# Note: if you are using git dont forget to add this file in .gitignore
+# echo 'izhar'> working-with-vault/.vaultpass
+# ansible-playbook working-with-vault/00-vault-1.yml --vault-password-file=working-with-vault/.vaultpass
+
+# OR providing vault_password_file in ansible.cfg and running the normal playbook
+# ansible-playbook working-with-vault/00-vault-1.yml 
+
