@@ -46,3 +46,9 @@ forks = 1
             - Allows us to modify the internal state to correct the problem
         - Failing task or the whole playbook can be debugged
 - ***Only one strategy plugin can be used per play***
+
+#### Throttle
+- Some task may suffer from parallel execution
+    - i.e. CPU intensive tasks or tasks interacting with an API
+- Limits the number of workers for a particular task or task block
+- ***Should be lower than serial or forks settings***
