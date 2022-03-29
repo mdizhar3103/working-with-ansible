@@ -42,3 +42,38 @@ ansible-vault rekey vaultfile1.yml
     >>> enter new-vault password and confirm password
 
 ```
+
+**Adding vault_password_file in ansible.cfg**
+```bash
+[defaults]
+....
+vault_password_file = ./working-with-vault/.vaultpass
+```
+
+**Managing Multiple Passwords with Vault IDs**
+- Using Vault-IDs helps differentiate between different passwords
+- Helps avoid password sharing among team members
+- To pass vault ID as an option:
+    - '--vault-id label@source'
+    - '--encrypt-vault-id label@source'
+- Label is arbitarily chosen
+- Source can be a prompt, a file, or a script
+
+**Adding vault_id in ansible.cfg**
+```bash
+[defaults]
+....
+vault_identity_list = dev@./working-with-vault/.dev_pass , prod@./working-with-vault/.prod_pass
+
+
+>>> echo 'devpass' > ./working-with-vault/.dev_pass
+>>> echo 'prodpass' > ./working-with-vault/.prod_pass
+
+# creating vault id for dev, ansible will automatically fetch the password from ansible.cfg specified path of label
+ansible-vault create --encrypt-vault-id dev working-with-vault/vault_dev.yml
+    # adding the varaible data or data in this file
+    dev_variable: "Dev Rocks!"
+
+ansible-vault create --encrypt-vault-id prod working-with-vault/vault_prod.yml
+    prod_variable: "Prod Rocks!"
+```

@@ -1,0 +1,14 @@
+--- 
+- name: using ansible vault ID
+  hosts: webserver 
+  vars_files:
+    - vault_prod.yml
+    - vault_dev.yml
+  tasks:
+  - name: msg from the dev environment
+    debug:
+      msg: "{{ dev_variable }}"
+
+  - name: msg from the prod environment
+    debug:
+      msg: "{{ prod_variable }}"
