@@ -1,0 +1,14 @@
+- name: Managing Parallelism in Ansible
+  hosts: all
+  serial: 2
+  vars:
+    - sleep_duration: 1
+  gather_facts: false
+  tasks:
+    - name: Running sleep command 
+      command: "sleep {{ sleep_duration }}"
+      register: result
+
+    - name: Deneme Debug
+      debug: 
+        msg: "{{ inventory_hostname }} task1 {{ result.start }} - {{ result.end }}"

@@ -16,3 +16,9 @@
 ...
 forks = 1
 ```
+
+**Serial**
+- Limits the number of hosts affected by a play at a given time
+- Allows to control the seize of a rolling update window
+- Set in the play header
+- We can set a number, a percentage, or a list of numbers of hosts
