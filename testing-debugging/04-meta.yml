@@ -1,0 +1,14 @@
+---
+- name: Clear gathered facts using meta
+  hosts: dbserver
+  tasks:
+  - name: Display a gathered fact - IP address
+    debug:
+      var: ansible_default_ipv4.address
+
+  - name: Clear the gathered facts
+    meta: clear_facts
+
+  - name: Display a gathered fact once more
+    debug:
+      var: ansible_default_ipv4.address
