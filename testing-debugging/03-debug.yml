@@ -1,0 +1,32 @@
+---
+- name: Displaying variables, messages and assertions
+  hosts: all
+  vars:
+    - my_param: 42
+  tasks:
+  - name: check_mode example
+    command:
+      cmd: date +%s
+    register: date_result
+
+  - name: Display time code variable gathered by command module 
+    debug:
+      var: date_result.stdout
+
+  - name: check date_result
+    debug:
+      msg: "The system {{ inventory_hostname }} has the current timecode: {{ date_result.stdout }}"
+
+  - name: Using an assertions on my_param variable
+    assert:
+      that:
+        - my_param == 42
+      fail_msg: "'my_msg' is not the correct answer!"
+      success_msg: "'my_msg' is the correct answer!"
+
+  - name: Fail the Playbook when my_param is not the correct answer
+    fail:
+      msg: This execution has failed to provide the correct answer.
+    when: "'my_param' != 42"
+
+# ansible-playbook 03-debug.yml
