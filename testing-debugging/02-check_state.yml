@@ -1,0 +1,17 @@
+---
+- name: Check Mode using yum
+  hosts: all
+  tasks:
+  - name: check_mode example
+    yum:
+      name: httpd
+      state: absent
+    register: httpd_pkg_result
+    check_mode: yes
+
+  - name: Fail if httpd is not absent 
+    fail:
+    when: httpd_pkg_result['changed']
+
+# ansible-playbook -C 02-check_state.yml
+# ansible-playbook -vvvvv 02-check_state.yml
