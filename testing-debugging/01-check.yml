@@ -1,0 +1,16 @@
+
+---
+- name: Using check_mode in tasks
+  hosts: all
+  tasks:
+  - name: check_mode example
+    command:
+      cmd: date +%s
+    register: date_result
+    check_mode: no
+
+  - name: check date_result 
+    debug:
+      var: date_result.stdout
+
+# ansible-playbook --check 01-check.yml
