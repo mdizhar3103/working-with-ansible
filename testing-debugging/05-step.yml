@@ -1,0 +1,25 @@
+---
+- name: Debugger example
+  hosts: dbserver
+  vars: 
+    - pkg_name: doest_not_exist
+  tasks:
+    - name: Install a package
+      yum:
+        name: "{{ pkg_name }}"
+        state: present
+
+# ansible-playbook 05-step.yml
+# on failing it will give you debugger prompt use the following command to work on debug console
+# p task.args
+# task.args['name'] = 'bash'
+# p task.args
+# redo
+
+# Now again re-run the playbook
+# p task_vars['pkg_name']
+# task_vars['pkg_name'] = 'bash'
+# p task_vars['pkg_name']
+# update_task
+# redo
+
