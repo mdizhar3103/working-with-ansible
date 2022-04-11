@@ -1,0 +1,38 @@
+- name: Ensure Apache is installed with the correct modules
+  hosts: webserver
+  tasks:
+  - name: Ensure HTTPD and php packages are installed
+    yum: 
+      name: "{{ item }}" 
+      state: present
+    with_items: 
+      - httpd
+      - php
+      - php-mysql
+
+  - name: httpd service is started
+    service:
+      name: httpd
+      state: started
+      enabled: true
+
+  - name: Firewalld enabled and Running
+    service:
+      name: firewalld
+      enabled: true
+      state: started
+
+  - name: Firewalld permits http service
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+      immediate: 'yes'
+      
+  - name: Copy PHP File
+    copy:
+      src: index.php
+      dest: /var/www/html/index.php
+      owner: apache
+      group: apache
+      mode: '0644'

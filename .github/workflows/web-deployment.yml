@@ -1,0 +1,23 @@
+name: Webserver Deployment
+
+# specifying triggers using `on` keyword
+on: 
+  workflow_dispatch:
+
+# Creating Jobs
+jobs:
+  linting:                     # Name of the job
+    name: Lint Ansible Files   
+    runs-on: ubuntu-latest     # agent machine
+
+    # body of workflow
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3    # refers to: https://github.com/actions/checkout and v3 is branch name or version of branch, generally branch name is not used because branch keep on changing over time and we use v3 as the tag name
+      
+      - name: Linting 
+        uses: ansible-community/ansible-lint-action@6d2f50fbf78904a6d06708ac0e20f137beb05dc6  # Using last commit hash for branch
+        with:
+          targets: |                 # for multiline
+            integerating_with_github_actions/playbook.yml
+            integerating_with_github_actions/inventory.yml

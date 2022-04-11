@@ -1,0 +1,12 @@
+---
+all:
+  children:
+    web-server:
+      hosts:
+        10.12.2.205
+    
+    dbserver:
+      hosts:
+        10.12.77.49
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
