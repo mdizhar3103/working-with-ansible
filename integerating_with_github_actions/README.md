@@ -17,3 +17,19 @@ git push origin main
 
 # Now goto this github repo and run the workflow
 ```
+
+**Running the Workflow on every push**
+```bash
+# edit web-deployment.yml and add the following changes
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+git add -A
+git commit -m "run workflow on pushed to main branch"
+git push origin main
+```
+
+
