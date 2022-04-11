@@ -3,6 +3,9 @@ name: Webserver Deployment
 # specifying triggers using `on` keyword
 on: 
   workflow_dispatch:
+  push:
+      branches:
+            - main
 
 # Creating Jobs
 jobs:
