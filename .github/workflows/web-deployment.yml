@@ -8,7 +8,7 @@ on:
 jobs:
   linting:                     # Name of the job
     name: Lint Ansible Files   
-    runs-on: ubuntu-latest     # agent machine
+    runs-on: self-hosted     # agent machine
 
     # body of workflow
     steps:
