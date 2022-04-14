@@ -1,0 +1,58 @@
+name: Running Ansible Webserver Deployment Playbook 
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  linting:                     
+    name: Lint Ansible Files   
+    runs-on: ubuntu-20.04   
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3    
+      
+      - name: Linting 
+        uses: ansible-community/ansible-lint-action@6d2f50fbf78904a6d06708ac0e20f137beb05dc6  # Using last commit hash for branch
+        with:
+          targets: |                 
+            03-webserver.yml
+
+      - name: Publish Playbook Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: playbooks-artifacts
+          path: |
+            ./03-webserver.yml
+            ./inventory
+            ./ansible.cfg
+            ./working-with-vault
+
+  # running ansible playbooks
+  deploy_to_test:
+    name: Deploying to test Environment
+    runs-on: ubuntu-20.04
+    needs: linting                  # depends on linting job
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: playbooks-artifacts
+        path: ./
+
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: ./
+
+    - uses: dawidd6/action-ansible-playbook@v2.5.0
+      with:
+        playbook: 03-webserver.yml
+        directory: ./
+        options: |
+          --inventory inventory
+          --extra-vars "ansible_ssh_private_key_file=${{ Secrets.TEST_SSH_PASSWORD }}"
+
