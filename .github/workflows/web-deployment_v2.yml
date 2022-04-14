@@ -1,4 +1,3 @@
-
 name: Running Ansible Webserver Deployment Playbook 
 
 on: 
@@ -23,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: playbooks-artifacts
-          path: 03-webserver.yml
+          path: ./03-webserver.yml
 
   # running ansible playbooks
   deploy_to_test:
@@ -35,7 +34,11 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: playbooks-artifacts
-        path: 03-webserver.yml
+        path: ./
+
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: ./
 
     - uses: dawidd6/action-ansible-playbook@v2.5.0
       with:
