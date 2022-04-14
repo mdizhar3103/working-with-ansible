@@ -1,3 +1,5 @@
+
+
 name: Running Ansible Webserver Deployment Playbook 
 
 on: 
@@ -22,7 +24,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: playbooks-artifacts
-          path: ./03-webserver.yml
+          path: |
+            ./03-webserver.yml
+            ./inventory
+            ./ansible.cfg
 
   # running ansible playbooks
   deploy_to_test:
