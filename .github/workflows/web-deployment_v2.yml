@@ -29,6 +29,7 @@ jobs:
             ./03-webserver.yml
             ./inventory
             ./ansible.cfg
+            ./working-with-vault
 
   # running ansible playbooks
   deploy_to_test:
