@@ -53,5 +53,5 @@ jobs:
         directory: ./
         options: |
           --inventory inventory
-          --extra-vars "ansible_ssh_pass=${{ Secrets.TEST_SSH_PASSWORD }}"
+          --extra-vars "ansible_ssh_private_key_file=${{ Secrets.TEST_SSH_PASSWORD }}"
 
