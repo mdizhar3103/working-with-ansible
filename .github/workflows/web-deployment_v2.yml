@@ -1,9 +1,10 @@
-
-
 name: Running Ansible Webserver Deployment Playbook 
 
 on: 
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   linting:                     
@@ -50,5 +51,6 @@ jobs:
         playbook: 03-webserver.yml
         directory: ./
         options: |
+          --inventory inventory
           --extra-vars "ansible_ssh_pass=${{ Secrets.TEST_SSH_PASSWORD }}"
 
