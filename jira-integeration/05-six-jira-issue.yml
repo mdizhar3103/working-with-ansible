@@ -1,0 +1,20 @@
+---
+- name: Integerating Ansible with Jira
+  hosts: localhost
+  vars_files:
+    - secrets.yml
+  vars: 
+    jirauri: "https://mdizhar3103.atlassian.net"
+  tasks:
+    - name: Searching Jira Issue 
+      jira: 
+        uri: "{{ jirauri }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        project: MFP    
+        operation: search 
+        jql: project=MFP AND assignee is EMPTY
+      args:
+        fields:
+          summary: null   # display only the summary field in the search result
+          created: null
