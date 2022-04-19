@@ -1,0 +1,17 @@
+---
+- name: Integerating Ansible with Jira
+  hosts: localhost
+  vars_files:
+    - secrets.yml
+  vars: 
+    jirauri: "https://mdizhar3103.atlassian.net"
+  tasks:
+    - name: Commenting on Jira Issue 
+      jira: 
+        uri: "{{ jirauri }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        project: MFP    
+        operation: comment 
+        issue: MFP-3
+        comment: My first comment using Ansible 
