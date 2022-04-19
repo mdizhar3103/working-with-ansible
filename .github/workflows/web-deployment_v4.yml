@@ -59,7 +59,7 @@ jobs:
           --extra-vars "ansible_ssh_private_key_file=${{ Secrets.TEST_SSH_PASSWORD }}"
 
   deploy_to_prod:
-    name: Deploying to test Environment
+    name: Deploying to Prod Environment
     runs-on: ubuntu-20.04
     needs: linting                  
     if: github.ref == 'refs/heads/main'
