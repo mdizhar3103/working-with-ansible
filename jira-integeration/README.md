@@ -29,6 +29,10 @@ ansible-vault encrypt secrets.yml
     # enter vault password
 
 vi encrypt.txt              # save the vault password in file to be used in decrypting
+
+#===================================
+# In my case vault-id is configured so I am using the following method to setup
+ansible-vault create --encrypt-vault-id prod jira-integeration/secrets.yml
 ```
 
 **Creating Jira Issue with Ansible**
