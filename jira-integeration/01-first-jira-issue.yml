@@ -1,0 +1,18 @@
+---
+- name: Integerating Ansible with Jira
+  hosts: localhost
+  vars_files:
+    - secrets.yml
+  vars: 
+    jirauri: "https://mdizhar3103.atlassian.net"
+  tasks:
+    - name: Create a Jira Issue and Assigned to a User
+      jira: 
+        uri: "{{ jirauri }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        project: MFP    
+        operation: edit
+        issue: MFP-3
+        account_id: 625e6fcdacc905006880d39b 
+        issuetype: Task 
